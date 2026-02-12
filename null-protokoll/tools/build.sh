@@ -51,6 +51,15 @@ build_epub() {
   echo "✓ null-protokoll.epub"
 }
 
+run_wordcount() {
+  if command -v python3 >/dev/null 2>&1; then
+    echo "Wordcount…"
+    python3 tools/wordcount.py
+  else
+    echo "✗ python3 fehlt → wordcount übersprungen"
+  fi
+}
+
 run_target() {
   case "$1" in
     all)
@@ -92,6 +101,10 @@ run_target() {
 
 if [ "$#" -eq 0 ]; then
   set -- all
+fi
+
+if ! { [ "$#" -eq 1 ] && [[ "$1" =~ ^(-h|--help|help)$ ]]; }; then
+  run_wordcount
 fi
 
 echo "=== Building: $* ==="

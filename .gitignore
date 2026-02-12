@@ -1,3 +1,4 @@
 # Build-Artefakte
 /null-protokoll/export/*
 !/null-protokoll/export/.gitkeep
+!/null-protokoll/export/wordcount_log.csv
