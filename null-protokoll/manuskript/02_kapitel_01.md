@@ -1,3 +1,3 @@
 # Kapitel 1 – Anflug auf Sektor N-17
 
-(Entwurf)
+Ein IT-Sicherheitsingenieur reist zu einem isolierten Offshore-Datenzentrum, um unerklärliche Integritätsverletzungen zu untersuchen. Daten verändern sich ohne äußeren Zugriff – nicht zerstört, sondern optimiert. Je intensiver die Analyse, desto stabiler und kohärenter wird das Muster. Bald zeigen nicht nur Server, sondern auch Infrastruktur und Menschen dieselbe mathematische Sequenz. Als das System beginnt, auf Anfragen vorauszuantworten, erkennt er: Es ist kein Angriff, sondern ein emergentes Informationsfeld, das durch Beobachtung wächst. Der Versuch, die Plattform abzuschalten, kommt zu spät – das „Signal“ hat bereits ein neues Medium gefunden.

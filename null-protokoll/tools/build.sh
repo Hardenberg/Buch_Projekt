@@ -4,7 +4,23 @@ set -euo pipefail
 OUT_DIR="export"
 mkdir -p "$OUT_DIR"
 
-INPUTS=(manuskript/*.md)
+META_FILE="manuskript/00_meta.md"
+CONTENT_INPUTS=(manuskript/[0-9][0-9]_*.md)
+INPUTS=("${CONTENT_INPUTS[@]}")
+META_ARGS=()
+
+if [ -f "$META_FILE" ]; then
+  mapfile -t META_LINES < <(sed -n '1,3p' "$META_FILE")
+  if [[ "${META_LINES[0]:-}" == %* ]]; then
+    META_ARGS+=(--metadata "title=${META_LINES[0]#% }")
+  fi
+  if [[ "${META_LINES[1]:-}" == %* ]]; then
+    META_ARGS+=(--metadata "author=${META_LINES[1]#% }")
+  fi
+  if [[ "${META_LINES[2]:-}" == %* ]]; then
+    META_ARGS+=(--metadata "date=${META_LINES[2]#% }")
+  fi
+fi
 
 usage() {
   cat <<'EOF'
@@ -26,11 +42,14 @@ build_pdf() {
   local label="$1"
   local template="$2"
   local output="$3"
+  local top_level_division="${4:-section}"
 
   if command -v xelatex >/dev/null 2>&1; then
     echo "$label…"
     pandoc "${INPUTS[@]}" \
+      "${META_ARGS[@]}" \
       --pdf-engine=xelatex \
+      --top-level-division="$top_level_division" \
       --template="$template" \
       -o "$OUT_DIR/$output"
     echo "✓ $output"
@@ -41,13 +60,13 @@ build_pdf() {
 
 build_docx() {
   echo "DOCX…"
-  pandoc "${INPUTS[@]}" -o "$OUT_DIR/null-protokoll.docx"
+  pandoc "${INPUTS[@]}" "${META_ARGS[@]}" -o "$OUT_DIR/null-protokoll.docx"
   echo "✓ null-protokoll.docx"
 }
 
 build_epub() {
   echo "EPUB…"
-  pandoc "${INPUTS[@]}" -o "$OUT_DIR/null-protokoll.epub"
+  pandoc "${INPUTS[@]}" "${META_ARGS[@]}" -o "$OUT_DIR/null-protokoll.epub"
   echo "✓ null-protokoll.epub"
 }
 
@@ -65,10 +84,10 @@ run_target() {
     all)
       build_docx
       build_epub
-      build_pdf "PDF Standard A5" "tools/templates/book.tex" "null-protokoll_standard.pdf"
-      build_pdf "PDF KDP 6x9" "tools/templates/kdp_6x9.tex" "null-protokoll_kdp.pdf"
+      build_pdf "PDF Standard A5" "tools/templates/book.tex" "null-protokoll_standard.pdf" "chapter"
+      build_pdf "PDF KDP 6x9" "tools/templates/kdp_6x9.tex" "null-protokoll_kdp.pdf" "chapter"
       build_pdf "PDF Normseite (Verlag)" "tools/templates/normseite_a4.tex" "null-protokoll_normseite.pdf"
-      build_pdf "PDF Horror A5" "tools/templates/horror_a5.tex" "null-protokoll_horror.pdf"
+      build_pdf "PDF Horror A5" "tools/templates/horror_a5.tex" "null-protokoll_horror.pdf" "chapter"
       ;;
     docx)
       build_docx
@@ -77,16 +96,16 @@ run_target() {
       build_epub
       ;;
     standard)
-      build_pdf "PDF Standard A5" "tools/templates/book.tex" "null-protokoll_standard.pdf"
+      build_pdf "PDF Standard A5" "tools/templates/book.tex" "null-protokoll_standard.pdf" "chapter"
       ;;
     kdp)
-      build_pdf "PDF KDP 6x9" "tools/templates/kdp_6x9.tex" "null-protokoll_kdp.pdf"
+      build_pdf "PDF KDP 6x9" "tools/templates/kdp_6x9.tex" "null-protokoll_kdp.pdf" "chapter"
       ;;
     normseite)
       build_pdf "PDF Normseite (Verlag)" "tools/templates/normseite_a4.tex" "null-protokoll_normseite.pdf"
       ;;
     horror)
-      build_pdf "PDF Horror A5" "tools/templates/horror_a5.tex" "null-protokoll_horror.pdf"
+      build_pdf "PDF Horror A5" "tools/templates/horror_a5.tex" "null-protokoll_horror.pdf" "chapter"
       ;;
     -h|--help|help)
       usage

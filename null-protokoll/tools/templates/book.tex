@@ -24,11 +24,30 @@
 
 \setlength{\parindent}{1.2em}
 \setlength{\parskip}{0pt}
+\setcounter{secnumdepth}{-1}
 
 % hyperlinks (required for pandoc anchors)
 \usepackage{hyperref}
 \hypersetup{hidelinks}
 \begin{document}
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \\ $endfor$}
+$endif$
+$if(date)$
+\date{$date$}
+$else$
+\date{}
+$endif$
+
+$if(title)$
+\maketitle
+\thispagestyle{empty}
+\clearpage
+$endif$
 
 $body$
 
