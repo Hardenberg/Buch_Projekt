@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+% Monospace fallback: Liberation Mono -> DejaVu Sans Mono -> TeX Gyre Cursor -> Latin Modern Mono
+\IfFontExistsTF{Liberation Mono}{\setmainfont{Liberation Mono}}{
+  \IfFontExistsTF{DejaVu Sans Mono}{\setmainfont{DejaVu Sans Mono}}{
+    \IfFontExistsTF{TeX Gyre Cursor}{\setmainfont{TeX Gyre Cursor}}{\setmainfont{Latin Modern Mono}}
+  }
+}
+
+\usepackage{microtype}
+\usepackage{setspace}
+\doublespacing
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+\usepackage{fancyhdr}
+
+% hyperlinks (required for pandoc anchors)
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+$body$
+\end{document}

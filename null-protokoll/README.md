@@ -1,0 +1,1 @@
+Schreibprojekt (Markdown → PDF/EPUB/DOCX) mit Versionskontrolle.

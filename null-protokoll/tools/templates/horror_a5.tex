@@ -1,0 +1,41 @@
+\documentclass[11pt,oneside]{book}
+
+\usepackage[a5paper,inner=20mm,outer=15mm,top=18mm,bottom=22mm]{geometry}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+% Prefer EB Garamond, fallback to Pagella/LM
+\IfFontExistsTF{EB Garamond}{\setmainfont{EB Garamond}}{
+  \IfFontExistsTF{TeX Gyre Pagella}{\setmainfont{TeX Gyre Pagella}}{\setmainfont{Latin Modern Roman}}
+}
+
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.22}
+
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0pt}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\Large}
+  {\vspace{-10pt}\centering\scshape\chaptername\ \thechapter}
+  {12pt}
+  {\centering\Huge\bfseries}
+\titlespacing*{\chapter}{0pt}{10pt}{24pt}
+
+\usepackage{fancyhdr}
+
+% hyperlinks (required for pandoc anchors)
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+$body$
+\end{document}

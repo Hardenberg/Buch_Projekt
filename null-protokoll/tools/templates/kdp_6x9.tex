@@ -1,0 +1,50 @@
+\documentclass[11pt,twoside,openright]{book}
+
+% KDP Trim Size 6x9 inch
+\usepackage[
+  paperwidth=6in,
+  paperheight=9in,
+  inner=0.85in,
+  outer=0.6in,
+  top=0.65in,
+  bottom=0.8in
+]{geometry}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+% Font fallback (läuft auf praktisch jedem TeX-Setup)
+\IfFontExistsTF{TeX Gyre Pagella}{\setmainfont{TeX Gyre Pagella}}{\setmainfont{Latin Modern Roman}}
+
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0pt}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptername\ \thechapter}
+  {10pt}
+  {\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+\usepackage{fancyhdr}
+
+% hyperlinks (required for pandoc anchors)
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+$body$
+\end{document}

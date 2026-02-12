@@ -1,0 +1,35 @@
+\documentclass[11pt,oneside]{book}
+
+\usepackage[a5paper,inner=20mm,outer=15mm,top=20mm,bottom=25mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella} % schöne Buchschrift
+
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptername\ \thechapter}
+  {20pt}
+  {\Huge}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+
+\usepackage[ngerman]{babel}
+
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0pt}
+
+% hyperlinks (required for pandoc anchors)
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\begin{document}
+
+$body$
+
+\end{document}
